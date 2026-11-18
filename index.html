@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rifal · Développeuse web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3e8ff;--surface:#fff;--ink:#3a1c5e;--soft:#6e5a8a;--acc:#ff5fa2;--acc2:#ffe27a;--mint:#b9f0d6;--line:#3a1c5e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d0f33;--surface:#2b1749;--ink:#fbeaff;--soft:#c9b3e6;--line:#fbeaff}}
+:root[data-theme="dark"]{--bg:#1d0f33;--surface:#2b1749;--ink:#fbeaff;--soft:#c9b3e6;--line:#fbeaff}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.6 "DM Sans",system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:"Bagel Fat One","DM Sans",system-ui,sans-serif;font-weight:400;line-height:1.05;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+
+/* Header et menu mis à jour */
+header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.2rem;padding-top:calc(.8rem + env(safe-area-inset-top,0px));background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);flex-wrap:wrap;gap:.8rem}
+.logo{font-family:"Bagel Fat One",sans-serif;font-size:1.4rem;text-decoration:none}
+nav{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+nav a{text-decoration:none;padding:.4rem .9rem;border-radius:99px;font-weight:500}
+nav a:hover{background:var(--acc2);color:#3a1c5e}
+
+/* Styles pour intégrer les couleurs dans le menu */
+.nav-themes{display:flex;gap:.4rem;align-items:center;margin-left:.5rem;padding-left:.5rem;border-left:2px solid var(--line)}
+.dot{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0;transition:transform .2s}
+.dot:hover{transform:scale(1.15)}
+
+#burger{display:none;background:var(--acc);border:2px solid var(--line);border-radius:99px;width:44px;height:44px;font-size:1.2rem;cursor:pointer}
+@media(max-width:850px){#burger{display:block}nav{position:fixed;inset:64px 1rem auto 1rem;flex-direction:column;background:var(--surface);border:2px solid var(--line);border-radius:28px;padding:1.5rem;transform:scale(.9);opacity:0;pointer-events:none;transition:.2s;align-items:stretch}nav.open{transform:none;opacity:1;pointer-events:auto}nav a{font-size:1.2rem;text-align:center}.nav-themes{justify-content:center;margin-left:0;padding-left:0;border-left:none;border-top:2px solid var(--line);padding-top:1rem;margin-top:.5rem}}
+
+section{padding:4.5rem 1.2rem;max-width:1100px;margin:0 auto}
+.hero{min-height:86vh;display:flex;flex-direction:column;justify-content:center;position:relative;touch-action:manipulation}
+.hero h1{font-size:clamp(3.2rem,15vw,9rem);letter-spacing:-.02em}
+.hero h1 span{display:inline-block;transition:transform .25s cubic-bezier(.3,1.8,.5,1)}
+.hero h1 span:hover{transform:translateY(-14px) rotate(-8deg);color:var(--acc)}
+.hero p{max-width:32ch;font-size:1.25rem;color:var(--soft)}
+.btn{display:inline-block;background:var(--acc);color:#fff;border:2px solid var(--line);border-radius:99px;padding:.8rem 1.6rem;font:700 1rem "DM Sans",sans-serif;text-decoration:none;cursor:pointer;box-shadow:4px 4px 0 var(--line);transition:.15s}
+.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--line)}
+.btn.alt{background:var(--acc2);color:#3a1c5e}
+.sticker{position:absolute;font-size:clamp(2.4rem,9vw,4.5rem);cursor:grab;user-select:none;touch-action:none;filter:drop-shadow(3px 4px 0 rgba(58,28,94,.25))}
+.sticker:active{cursor:grabbing}
+.marquee{overflow:hidden;background:var(--ink);color:var(--bg);padding:.9rem 0;transform:rotate(-1.5deg);margin:1rem -2rem}
+.marquee div{display:flex;gap:2.5rem;width:max-content;animation:m 22s linear infinite;font:400 1.5rem "Bagel Fat One",sans-serif}
+@keyframes m{to{transform:translateX(-50%)}}
+h2{font-size:clamp(2.2rem,8vw,4rem);margin-bottom:1.5rem}
+.flip{perspective:900px;max-width:520px;cursor:pointer;height:340px}
+.flip>div{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.flip.on>div{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border:2px solid var(--line);border-radius:28px;padding:1.5rem;box-shadow:6px 6px 0 var(--line)}
+.f1{background:var(--surface)}
+.f2{background:#2a1245;color:#b9f0d6;transform:rotateY(180deg);font:500 .95rem/1.7 ui-monospace,Menlo,monospace}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+.chip{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:.5rem 1.1rem;font:500 1rem "DM Sans",sans-serif;cursor:pointer;min-height:44px}
+.chip[aria-pressed="true"]{background:var(--acc);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:6px 6px 0 var(--line);cursor:pointer;transition:transform .2s;text-align:left;color:inherit;padding:0;font:inherit;display:block;width:100%}
+.card:hover{transform:rotate(-1deg) translateY(-4px)}
+.card.hide{display:none}
+
+.thumb{height:190px;width:100%;padding:0;overflow:hidden;background:#f9f5ff;border-bottom:2px solid var(--line);display:block;}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .3s ease;}
+.card:hover .thumb img{transform:scale(1.03);}
+
+.body{padding:1rem 1.2rem 1.3rem}
+.body h3{font-size:1.5rem;margin-bottom:.3rem}
+.more{max-height:0;overflow:hidden;transition:max-height .35s;color:var(--soft);font-size:.95rem}
+.card.open .more{max-height:180px;margin-top:.6rem}
+.skills{display:grid;gap:1rem;max-width:620px}
+.sk{display:grid;gap:.3rem}
+.sk b{display:flex;justify-content:space-between}
+.bar{height:16px;border:2px solid var(--line);border-radius:99px;background:var(--surface);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);border-radius:99px;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+form{display:grid;gap:1rem;max-width:560px}
+input,textarea{width:100%;border:2px solid var(--line);border-radius:20px;padding:.9rem 1rem;font:inherit;background:var(--surface);color:var(--ink)}
+footer{text-align:center;padding:2rem 1rem 3rem;color:var(--soft)}
+.sp{position:fixed;pointer-events:none;z-index:50;font-size:1.2rem;animation:pop .8s ease-out forwards}
+@keyframes pop{to{transform:translate(var(--x),var(--y)) scale(.2) rotate(180deg);opacity:0}}
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,200%);background:var(--ink);color:var(--bg);padding:.7rem 1.3rem;border-radius:99px;transition:.3s;z-index:60}
+.toast.show{transform:translate(-50%,0)}
+#prog{position:fixed;top:0;left:0;height:4px;width:0;background:var(--acc);z-index:70}
+.cc{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:2rem}
+.cc .btn{display:inline-flex;align-items:center;gap:.5rem;min-height:48px}
+.out{color:transparent;-webkit-text-stroke:2px var(--ink);font-size:clamp(3rem,13vw,8rem)}
+.band.dark{background:#241038;color:#fbeaff;--ink:#fbeaff;--line:#fbeaff;--surface:#341a54;--soft:#c9b3e6}
+.avatar{position:relative;align-self:flex-start;width:clamp(150px,34vw,260px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,var(--acc2) 38%,var(--acc) 100%);border:3px solid var(--line);box-shadow:8px 8px 0 var(--line);display:grid;place-items:center;overflow:hidden;margin-bottom:1.2rem;cursor:pointer}
+.avatar span{font-size:clamp(5rem,20vw,9rem);transition:transform .12s;display:block}
+.row{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:2px solid var(--line);color:inherit;font:inherit;padding:1.2rem 0;cursor:pointer}
+.row b{display:flex;align-items:baseline;gap:1rem;font:400 clamp(1.6rem,6vw,3rem)/1.1 "Bagel Fat One",sans-serif;transition:color .2s}
+.row:hover b{color:var(--acc)}
+.row em{font:700 1rem "DM Sans",sans-serif;color:var(--acc);font-style:normal}
+.row i{margin-left:auto;transition:transform .3s;font-style:normal}
+.row span{display:block;max-height:0;overflow:hidden;transition:max-height .35s;color:var(--soft);max-width:50ch}
+.row.open span{max-height:140px;padding-top:.7rem}
+.tw{overflow:hidden;padding:.6rem 0 1.2rem}
+.tt{display:flex;gap:1rem;width:max-content;animation:m 32s linear infinite}
+.tt:hover,.tt:active{animation-play-state:paused}
+.tc{width:270px;white-space:normal;background:var(--surface);border:2px solid var(--line);border-radius:28px;padding:1.2rem;box-shadow:5px 5px 0 var(--line)}
+.tc p{margin:0 0 .6rem;font-size:.95rem}
+.shapes{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin-bottom:1.5rem}
+.shapes span{width:clamp(36px,9vw,64px);aspect-ratio:1;cursor:pointer;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<header>
+  <a class="logo" href="#top">Rifal ✿</a>
+  <button id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  <nav id="nav">
+    <a href="#apropos">À propos</a>
+    <a href="#services">Services</a>
+    <a href="#projets">Projets</a>
+    <a href="#skills">Compétences</a>
+    <a href="#contact">Contact</a>
+    <!-- Sélecteur de couleurs et mode sombre intégré directement dans le menu -->
+    <div class="nav-themes" role="group" aria-label="Couleur du site">
+      <button class="dot" style="background:#ff5fa2" data-c="#ff5fa2" aria-label="Rose"></button>
+      <button class="dot" style="background:#9b6bff" data-c="#9b6bff" aria-label="Violet"></button>
+      <button class="dot" style="background:#ff8a5c" data-c="#ff8a5c" aria-label="Pêche"></button>
+      <button class="dot" style="background:#2fc4a0" data-c="#2fc4a0" aria-label="Menthe"></button>
+      <button class="dot" id="mode" style="background:var(--ink)" aria-label="Mode clair ou sombre"></button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+<section class="hero" id="hero">
+  <div class="avatar" id="avatar" aria-hidden="true"><span>👩🏻‍💻</span></div>
+  <h1 id="title" aria-label="Salut, moi c’est Rifal"></h1>
+  <p>Développeuse web spécialisée dans la création de sites élégants, rapides et parfaitement adaptés au mobile.</p>
+  <p style="margin-top:1.5rem"><a class="btn" href="#projets">Voir mes projets</a> <a class="btn alt" href="#contact">Me contacter</a></p>
+  <span class="sticker" style="top:8%;right:8%" aria-hidden="true">🌸</span>
+  <span class="sticker" style="top:46%;right:20%" aria-hidden="true">💻</span>
+  <span class="sticker" style="bottom:10%;right:6%" aria-hidden="true">✨</span>
+</section>
+
+<div class="marquee" aria-hidden="true"><div><span>HTML ✿</span><span>CSS ✿</span><span>JavaScript ✿</span><span>React ✿</span><span>Responsive ✿</span><span>UI/UX ✿</span><span>HTML ✿</span><span>CSS ✿</span><span>JavaScript ✿</span><span>React ✿</span><span>Responsive ✿</span><span>UI/UX ✿</span></div></div>
+
+<section id="apropos">
+  <h2>Un peu de moi</h2>
+  <div class="flip" id="flip" role="button" tabindex="0" aria-label="Retourner la carte">
+    <div>
+      <div class="face f1"><h3 style="font-size:1.8rem">Bonjour, je suis Rifal</h3><p style="font-size:.98rem;margin:.6rem 0 0">Développeuse web, je conçois des sites modernes, rapides et accessibles, pensés d’abord pour le mobile. J’associe un design soigné à une expérience fluide, pour que chaque site reflète l’identité de son projet.</p><p style="font-size:.85rem;color:var(--soft);margin:.6rem 0 0">Touche la carte pour voir l’envers ✿</p></div>
+      <div class="face f2">const rifal = {<br>&nbsp;&nbsp;métier: "développeuse web",<br>&nbsp;&nbsp;aime: ["design", "café", "mobile"],<br>&nbsp;&nbsp;dispo: true<br>};</div>
+    </div>
+  </div>
+</section>
+
+<div class="band dark"><section id="services">
+  <h2 class="out">Services</h2>
+  <div>
+    <button class="row" aria-expanded="false"><b><em>01</em>Site vitrine<i>+</i></b><span>Un site clair et rapide qui présente ton activité et donne envie de te contacter.</span></button>
+    <button class="row" aria-expanded="false"><b><em>02</em>Boutique en ligne<i>+</i></b><span>Catalogue, panier et paiement, pensés pour acheter facilement depuis un téléphone.</span></button>
+    <button class="row" aria-expanded="false"><b><em>03</em>Refonte responsive<i>+</i></b><span>Je modernise ton site existant pour qu’il s’affiche parfaitement sur tous les écrans.</span></button>
+    <button class="row" aria-expanded="false"><b><em>04</em>Maintenance<i>+</i></b><span>Mises à jour, corrections et améliorations pour que ton site reste en forme.</span></button>
+  </div>
+</section></div>
+
+<section id="projets">
+  <h2 class="out">Projets</h2>
+  <div class="chips" role="group" aria-label="Filtrer les projets">
+    <button class="chip" aria-pressed="true" data-f="all">Tous</button>
+    <button class="chip" aria-pressed="false" data-f="vitrine">Sites vitrines</button>
+    <button class="chip" aria-pressed="false" data-f="shop">Boutiques</button>
+    <button class="chip" aria-pressed="false" data-f="app">Applications</button>
+  </div>
+  <div class="grid">
+    <!-- Projet BikeMove -->
+    <button class="card" data-t="app">
+      <div class="thumb">
+        <img src="bikemove.png" alt="BikeMove">
+      </div>
+      <div class="body">
+        <h3>BikeMove</h3>
+        <span>Application web</span>
+        <div class="more">Plateforme de réservation et gestion de vélos et trottinettes. 
+          <br><a href="https://bikemove-app.infinityfreeapp.com/bikemovee/index.php" target="_blank" class="btn alt" style="margin-top:.6rem;padding:.4rem 1rem;box-shadow:none;display:inline-block;text-decoration:none;">Voir le site ➔</a>
+        </div>
+      </div>
+    </button>
+
+    <!-- Projet Sahha Burger -->
+    <button class="card" data-t="shop">
+      <div class="thumb">
+        <img src="sahhaburger.png" alt="Sahha Burger">
+      </div>
+      <div class="body">
+        <h3>Sahha Burger</h3>
+        <span>Restauration / Boutique</span>
+        <div class="more">Site de commande et présentation pour un concept de burger. 
+          <br><a href="https://sahhaburger.site.je/?i=1" target="_blank" class="btn alt" style="margin-top:.6rem;padding:.4rem 1rem;box-shadow:none;display:inline-block;text-decoration:none;">Voir le site ➔</a>
+        </div>
+      </div>
+    </button>
+
+    <!-- Projet Fiora -->
+    <button class="card" data-t="vitrine">
+      <div class="thumb">
+        <img src="fiora.png" alt="Fiora">
+      </div>
+      <div class="body">
+        <h3>Fiora</h3>
+        <span>Site vitrine</span>
+        <div class="more">Site web interactif et soigné. 
+          <br><a href="https://fiora.site.je/?i=1" target="_blank" class="btn alt" style="margin-top:.6rem;padding:.4rem 1rem;box-shadow:none;display:inline-block;text-decoration:none;">Voir le site ➔</a>
+        </div>
+      </div>
+    </button>
+
+    <!-- Projet Luna Beauty -->
+    <button class="card" data-t="shop">
+      <div class="thumb">
+        <img src="lunabeauty.png" alt="Luna Beauty">
+      </div>
+      <div class="body">
+        <h3>Luna Beauty</h3>
+        <span>Boutique / Salon</span>
+        <div class="more">Plateforme dédiée à l'univers de la beauté et des soins. 
+          <br><a href="https://lunabeauty.site.je/?i=1" target="_blank" class="btn alt" style="margin-top:.6rem;padding:.4rem 1rem;box-shadow:none;display:inline-block;text-decoration:none;">Voir le site ➔</a>
+        </div>
+      </div>
+    </button>
+  </div>
+</section>
+
+<div class="band dark"><section id="skills">
+  <h2>Ce que je maîtrise</h2>
+  <div class="skills" id="sk"></div>
+</section></div>
+
+<section id="avis">
+  <h2>Elles en parlent</h2>
+  <div class="tw"><div class="tt" id="tt">
+    <div class="tc"><p>Mon site est magnifique et super rapide sur mon téléphone. Merci !</p><b>Camille, fleuriste</b></div>
+    <div class="tc"><p>Elle a compris mon style tout de suite. Mes ventes ont décollé.</p><b>Sarah, pâtissière</b></div>
+    <div class="tc"><p>Travail soigné, délais respectés et très à l’écoute.</p><b>Nour, prof de yoga</b></div>
+  </div></div>
+</section>
+
+<section id="contact">
+  <h2>Parlons de ton projet</h2>
+  <div class="cc">
+    <a class="btn alt" href="https://wa.me/213797603132" target="_blank" rel="noopener">💬 WhatsApp</a>
+  </div>
+  <p style="color:var(--soft);margin:0 0 1.5rem">Ou écris-moi ici, je réponds vite :</p>
+  <form id="form">
+    <input name="n" placeholder="Ton prénom" required aria-label="Ton prénom">
+    <input name="e" type="email" placeholder="Ton email" required aria-label="Ton email">
+    <textarea name="m" rows="4" placeholder="Ton message" required aria-label="Ton message"></textarea>
+    <div><button class="btn" type="submit">Envoyer le message</button></div>
+  </form>
+</section>
+</main>
+<footer class="band dark"><div class="shapes" id="shapes" aria-hidden="true"></div>Fait avec ♥ et beaucoup de CSS · © 2026 Rifal</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+var EMAIL="ton.email@exemple.com"; 
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return Array.from((r||document).querySelectorAll(s))};
+var reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+// Titre lettre par lettre
+var t=$("#title");"Salut, moi c’est Rifal".split(" ").forEach(function(w,i,a){var s=document.createElement("span");s.style.whiteSpace="nowrap";w.split("").forEach(function(c){var l=document.createElement("span");l.textContent=c;s.appendChild(l)});t.appendChild(s);if(i<a.length-1)t.appendChild(document.createTextNode(" "))});
+$$("#title span span").forEach(function(l){l.addEventListener("touchstart",function(){l.style.transform="translateY(-14px) rotate(-8deg)";l.style.color="var(--acc)";setTimeout(function(){l.style.transform="";l.style.color=""},300)},{passive:true})});
+
+// Menu mobile
+var nav=$("#nav"),b=$("#burger");
+b.onclick=function(){var o=nav.classList.toggle("open");b.setAttribute("aria-expanded",o)};
+$$("#nav a").forEach(function(a){a.onclick=function(){nav.classList.remove("open");b.setAttribute("aria-expanded","false")}});
+
+// Couleurs et mode sombre
+var root=document.documentElement;
+$$(".dot[data-c]").forEach(function(d){d.onclick=function(){root.style.setProperty("--acc",d.dataset.c);toast("Couleur changée ✿")}});
+$("#mode").onclick=function(){var dark=getComputedStyle(root).getPropertyValue("--bg").trim()==="#1d0f33";root.setAttribute("data-theme",dark?"light":"dark")};
+
+// Étincelles au toucher / clic dans l'accueil
+var hero=$("#hero");
+function burst(x,y){if(reduce)return;for(var i=0;i<8;i++){var s=document.createElement("span");s.className="sp";s.textContent=["✨","🌸","💖","⭐"][i%4];s.style.left=x+"px";s.style.top=y+"px";var a=Math.random()*6.28,d=40+Math.random()*50;s.style.setProperty("--x",Math.cos(a)*d+"px");s.style.setProperty("--y",Math.sin(a)*d+"px");document.body.appendChild(s);setTimeout(function(el){el.remove()}.bind(null,s),800)}}
+hero.addEventListener("pointerdown",function(e){if(e.target.closest("a,button,.sticker"))return;burst(e.clientX,e.clientY)});
+
+// Stickers déplaçables (souris et doigt)
+$$(".sticker").forEach(function(s){var dx,dy,drag=false;
+s.addEventListener("pointerdown",function(e){drag=true;s.setPointerCapture(e.pointerId);var r=s.getBoundingClientRect(),h=hero.getBoundingClientRect();dx=e.clientX-r.left;dy=e.clientY-r.top;s.style.right="auto";s.style.bottom="auto";s.style.left=r.left-h.left+"px";s.style.top=r.top-h.top+"px";burst(e.clientX,e.clientY)});
+s.addEventListener("pointermove",function(e){if(!drag)return;var h=hero.getBoundingClientRect();s.style.left=e.clientX-h.left-dx+"px";s.style.top=e.clientY-h.top-dy+"px"});
+["pointerup","pointercancel"].forEach(function(n){s.addEventListener(n,function(){drag=false})})});
+
+// Carte qui se retourne
+var f=$("#flip");function fl(){f.classList.toggle("on")}
+f.onclick=fl;f.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fl()}};
+
+// Filtres et cartes dépliables
+$$(".chip").forEach(function(c){c.onclick=function(){$$(".chip").forEach(function(x){x.setAttribute("aria-pressed",x===c)});$$(".card").forEach(function(k){k.classList.toggle("hide",c.dataset.f!=="all"&&k.dataset.t!==c.dataset.f)})}});
+$$(".card").forEach(function(k){k.onclick=function(){k.classList.toggle("open")}});
+
+// Compétences
+var S=[["HTML & CSS",95],["JavaScript",85],["React",75],["Responsive design",92],["UI/UX",80]];
+var sk=$("#sk");S.forEach(function(x){sk.insertAdjacentHTML("beforeend",'<div class="sk"><b><span>'+x[0]+'</span><span>'+x[1]+'%</span></b><div class="bar"><i data-w="'+x[1]+'"></i></div></div>')});
+var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){$$("i",e.target).forEach(function(i){i.style.width=i.dataset.w+"%"});io.unobserve(e.target)}})},{threshold:.3});io.observe(sk);
+
+// Contact
+function toast(m){var o=$("#toast");o.textContent=m;o.classList.add("show");setTimeout(function(){o.classList.remove("show")},2200)}
+
+$("#form").onsubmit=function(e){e.preventDefault();var d=new FormData(e.target);location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Message de "+d.get("n"))+"&body="+encodeURIComponent(d.get("m")+"\n\n"+d.get("e"));toast("Ton application mail s’ouvre…")};
+
+// Avatar qui suit le doigt ou la souris
+var av=$("#avatar"),avs=$("#avatar span");
+addEventListener("pointermove",function(e){if(reduce)return;var x=(e.clientX/innerWidth-.5)*26,y=(e.clientY/innerHeight-.5)*26;avs.style.transform="translate("+x+"px,"+y+"px) rotate("+x/3+"deg)"},{passive:true});
+av.onclick=function(){var r=av.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2)};
+
+// Services dépliables
+$$(".row").forEach(function(r){r.onclick=function(){var o=r.classList.toggle("open");r.setAttribute("aria-expanded",o)}});
+
+// Avis en défilement continu
+var tt=$("#tt");tt.innerHTML+=tt.innerHTML;
+
+// Formes colorées du pied de page
+var sh=$("#shapes"),C=["#ff5fa2","#ffe27a","#b9f0d6","#9b6bff","#ff8a5c","#8fd3ff"],R=["50%","50% 50% 0 0","12px","50% 0 50% 0","0 50% 50% 0","50%"];
+for(var i=0;i<12;i++){var p=document.createElement("span");p.style.background=C[i%6];p.style.borderRadius=R[i%6];p.dataset.r=0;p.onclick=function(){this.dataset.r=+this.dataset.r+90;this.style.transform="rotate("+this.dataset.r+"deg) scale(1.15)";var q=this;setTimeout(function(){q.style.transform="rotate("+q.dataset.r+"deg)"},300)};sh.appendChild(p)}
+
+// Barre de progression
+var pg=$("#prog");addEventListener("scroll",function(){pg.style.width=scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)*100+"%"},{passive:true});
+</script>
+</body>
+</html>
+```[cite: 1]
